@@ -7,8 +7,8 @@ import Logo from "./logo"
 import { ModeToggle } from "@/components/mode-toggle"
 import { SignInButton, UserButton } from "@clerk/clerk-react"
 import { Button } from "@/components/ui/button"
-import Spinner from "./spinner"
 import Link from "next/link"
+import Spinner from "@/components/spinner"
 
 const Navbar = () => {
   const { isAuthenticated, isLoading } = useConvexAuth()

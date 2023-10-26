@@ -3,9 +3,9 @@
 import { Button } from "@/components/ui/button"
 import { useConvexAuth } from "convex/react"
 import { ArrowRight } from "lucide-react"
-import Spinner from "./spinner"
 import Link from "next/link"
 import { SignInButton } from "@clerk/clerk-react"
+import Spinner from "@/components/spinner"
 
 const Heading = () => {
   const { isAuthenticated, isLoading } = useConvexAuth()

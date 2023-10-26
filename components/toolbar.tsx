@@ -1,26 +1,31 @@
 "use client"
 
-import IconPicker from "@/components/icon-picker"
+import { ElementRef, useRef, useState } from "react"
+import { ImageIcon, Smile, X } from "lucide-react"
+import { useMutation } from "convex/react"
+import TextareaAutosize from "react-textarea-autosize"
+
+import { useCoverImage } from "@/hooks/use-cover-image"
+import { Doc } from "@/convex/_generated/dataModel"
 import { Button } from "@/components/ui/button"
 import { api } from "@/convex/_generated/api"
-import { Doc } from "@/convex/_generated/dataModel"
-import { useMutation } from "convex/react"
-import { ImageIcon, Smile, X } from "lucide-react"
-import React, { ElementRef, useRef, useState } from "react"
-import TextareaAutosize from "react-textarea-autosize"
+
+import IconPicker from "./icon-picker"
 
 interface ToolbarProps {
   initialData: Doc<"documents">
   preview?: boolean
 }
 
-const Toolbar = ({ initialData, preview }: ToolbarProps) => {
+export const Toolbar = ({ initialData, preview }: ToolbarProps) => {
   const inputRef = useRef<ElementRef<"textarea">>(null)
   const [isEditing, setIsEditing] = useState(false)
   const [value, setValue] = useState(initialData.title)
 
   const update = useMutation(api.documents.update)
   const removeIcon = useMutation(api.documents.removeIcon)
+
+  const coverImage = useCoverImage()
 
   const enableInput = () => {
     if (preview) return
@@ -32,9 +37,7 @@ const Toolbar = ({ initialData, preview }: ToolbarProps) => {
     }, 0)
   }
 
-  const disableInput = () => {
-    setIsEditing(false)
-  }
+  const disableInput = () => setIsEditing(false)
 
   const onInput = (value: string) => {
     setValue(value)
@@ -75,7 +78,7 @@ const Toolbar = ({ initialData, preview }: ToolbarProps) => {
           </IconPicker>
           <Button
             onClick={onRemoveIcon}
-            className="rounded-full opacity-0 group-hover/icon:opacity-100 text-muted-foreground text-xs"
+            className="rounded-full opacity-0 group-hover/icon:opacity-100 transition text-muted-foreground text-xs"
             variant="outline"
             size="icon"
           >
@@ -101,13 +104,13 @@ const Toolbar = ({ initialData, preview }: ToolbarProps) => {
         )}
         {!initialData.coverImage && !preview && (
           <Button
-            onClick={() => {}}
+            onClick={coverImage.onOpen}
             className="text-muted-foreground text-xs"
             variant="outline"
             size="sm"
           >
             <ImageIcon className="h-4 w-4 mr-2" />
-            Add Cover
+            Add cover
           </Button>
         )}
       </div>
@@ -123,7 +126,7 @@ const Toolbar = ({ initialData, preview }: ToolbarProps) => {
       ) : (
         <div
           onClick={enableInput}
-          className="pb-[11.5px] text-5xl font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] resize-none"
+          className="pb-[11.5px] text-5xl font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF]"
         >
           {initialData.title}
         </div>
@@ -131,5 +134,3 @@ const Toolbar = ({ initialData, preview }: ToolbarProps) => {
     </div>
   )
 }
-
-export default Toolbar
