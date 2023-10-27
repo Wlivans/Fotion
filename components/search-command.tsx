@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { File } from "lucide-react"
-import { useQuery } from "convex/react"
-import { useRouter } from "next/navigation"
-import { useUser } from "@clerk/clerk-react"
+import { useUser } from "@clerk/clerk-react";
+import { useQuery } from "convex/react";
+import { File } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import {
   CommandDialog,
@@ -13,43 +13,43 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command"
-import { useSearch } from "@/hooks/use-search"
-import { api } from "@/convex/_generated/api"
+} from "@/components/ui/command";
+import { api } from "@/convex/_generated/api";
+import { useSearch } from "@/hooks/use-search";
 
 export const SearchCommand = () => {
-  const { user } = useUser()
-  const router = useRouter()
-  const documents = useQuery(api.documents.getSearch)
-  const [isMounted, setIsMounted] = useState(false)
+  const { user } = useUser();
+  const router = useRouter();
+  const documents = useQuery(api.documents.getSearch);
+  const [isMounted, setIsMounted] = useState(false);
 
-  const toggle = useSearch((store) => store.toggle)
-  const isOpen = useSearch((store) => store.isOpen)
-  const onClose = useSearch((store) => store.onClose)
+  const toggle = useSearch((store) => store.toggle);
+  const isOpen = useSearch((store) => store.isOpen);
+  const onClose = useSearch((store) => store.onClose);
 
   useEffect(() => {
-    setIsMounted(true)
-  }, [])
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        toggle()
+        e.preventDefault();
+        toggle();
       }
-    }
+    };
 
-    document.addEventListener("keydown", down)
-    return () => document.removeEventListener("keydown", down)
-  }, [toggle])
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, [toggle]);
 
   const onSelect = (id: string) => {
-    router.push(`/documents/${id}`)
-    onClose()
-  }
+    router.push(`/documents/${id}`);
+    onClose();
+  };
 
   if (!isMounted) {
-    return null
+    return null;
   }
 
   return (
@@ -76,5 +76,5 @@ export const SearchCommand = () => {
         </CommandGroup>
       </CommandList>
     </CommandDialog>
-  )
-}
+  );
+};

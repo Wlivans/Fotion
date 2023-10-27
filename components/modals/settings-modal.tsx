@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { useSettings } from "@/hooks/use-settings"
-import { Dialog, DialogContent, DialogHeader } from "../ui/dialog"
-import { Label } from "../ui/label"
-import { ModeToggle } from "../mode-toggle"
+import { useSettings } from "@/hooks/use-settings";
+import { ModeToggle } from "../mode-toggle";
+import { Dialog, DialogContent, DialogHeader } from "../ui/dialog";
+import { Label } from "../ui/label";
 
 const SettingsModal = () => {
-  const settings = useSettings()
+  const settings = useSettings();
 
   return (
     <Dialog open={settings.isOpen} onOpenChange={settings.onClose}>
@@ -25,7 +25,7 @@ const SettingsModal = () => {
         </div>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default SettingsModal
+export default SettingsModal;

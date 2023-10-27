@@ -1,40 +1,40 @@
-"use client"
+"use client";
 
-import { api } from "@/convex/_generated/api"
-import { Doc, Id } from "@/convex/_generated/dataModel"
-import { useQuery } from "convex/react"
-import { useParams, useRouter } from "next/navigation"
-import { useState } from "react"
-import Item from "./item"
-import { cn } from "@/lib/utils"
-import { FileIcon } from "lucide-react"
+import { api } from "@/convex/_generated/api";
+import { Doc, Id } from "@/convex/_generated/dataModel";
+import { cn } from "@/lib/utils";
+import { useQuery } from "convex/react";
+import { FileIcon } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
+import Item from "./item";
 
 interface DocumentListProps {
-  parentDocumentId?: Id<"documents">
-  level?: number
-  data?: Doc<"documents">[]
+  parentDocumentId?: Id<"documents">;
+  level?: number;
+  data?: Doc<"documents">[];
 }
 
 const DocumentList = ({ parentDocumentId, level = 0 }: DocumentListProps) => {
-  const params = useParams()
-  const router = useRouter()
+  const params = useParams();
+  const router = useRouter();
 
   const documents = useQuery(api.documents.getSidebar, {
     parentDocument: parentDocumentId,
-  })
+  });
 
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({})
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
   const onExpand = (documentId: string) => {
     setExpanded((preExpend) => ({
       ...preExpend,
       [documentId]: !preExpend[documentId],
-    }))
-  }
+    }));
+  };
 
   const onRedirect = (documentId: string) => {
-    router.push(`/documents/${documentId}`)
-  }
+    router.push(`/documents/${documentId}`);
+  };
 
   if (documents === undefined) {
     return (
@@ -47,7 +47,7 @@ const DocumentList = ({ parentDocumentId, level = 0 }: DocumentListProps) => {
           </>
         )}
       </>
-    )
+    );
   }
 
   return (
@@ -59,7 +59,7 @@ const DocumentList = ({ parentDocumentId, level = 0 }: DocumentListProps) => {
         className={cn(
           "hidden text-sm font-medium text-muted-foreground/80",
           expanded && "last:block",
-          level === 0 && "hidden"
+          level === 0 && "hidden",
         )}
       >
         No pages inside
@@ -83,7 +83,7 @@ const DocumentList = ({ parentDocumentId, level = 0 }: DocumentListProps) => {
         </div>
       ))}
     </>
-  )
-}
+  );
+};
 
-export default DocumentList
+export default DocumentList;

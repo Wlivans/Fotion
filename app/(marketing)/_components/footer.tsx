@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button"
-import Logo from "./logo"
+import { Button } from "@/components/ui/button";
+import Logo from "./logo";
 
 const Footer = () => {
   return (
-    <div className="flex items-center w-full p-6 bg-background z-50 dark:bg-[#1F1F1F">
+    <div className="dark:bg-[#1F1F1F z-50 flex w-full items-center bg-background p-6">
       <Logo />
-      <div className="md:ml-auto w-full justify-between md:justify-end flex items-center gap-x-4">
+      <div className="flex w-full items-center justify-between gap-x-4 md:ml-auto md:justify-end">
         <Button variant={"ghost"} size={"sm"}>
           Privacy Policy
         </Button>
@@ -14,7 +14,7 @@ const Footer = () => {
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
