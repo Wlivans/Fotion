@@ -13,7 +13,8 @@
   },
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "warn"
+    "prettier/prettier": "warn",
+    "@typescript-eslint/no-explicit-any": ["off"]
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
